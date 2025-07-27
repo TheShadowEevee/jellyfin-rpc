@@ -66,7 +66,7 @@ impl Client {
     /// let mut builder = Client::builder();
     /// builder.api_key("abcd1234")
     ///     .url("https://jellyfin.example.com")
-    ///     .username("user");    
+    ///     .username("user");
     ///
     /// let mut client = builder.build().unwrap();
     ///
@@ -89,7 +89,7 @@ impl Client {
     /// let mut builder = Client::builder();
     /// builder.api_key("abcd1234")
     ///     .url("https://jellyfin.example.com")
-    ///     .username("user");    
+    ///     .username("user");
     ///
     /// let mut client = builder.build().unwrap();
     ///
@@ -214,9 +214,15 @@ impl Client {
             match session.now_playing_item.media_type {
                 MediaType::Book => (),
                 MediaType::Music | MediaType::AudioBook => {
-                    activity = activity.activity_type(ActivityType::Listening)
+                    activity = activity
+                        .activity_type(ActivityType::Listening)
+                        .status_display_type(2)
                 }
-                _ => activity = activity.activity_type(ActivityType::Watching),
+                _ => {
+                    activity = activity
+                        .activity_type(ActivityType::Watching)
+                        .status_display_type(1)
+                }
             }
 
             activity = activity
@@ -615,7 +621,9 @@ impl Client {
                     .state_text
                     .as_ref()
                     .unwrap();
-                self.parse_episodes_display(display_state_format.replace("{__default}", "").as_str())
+                self.parse_episodes_display(
+                    display_state_format.replace("{__default}", "").as_str(),
+                )
             }
             MediaType::LiveTv => "Live TV".to_string(),
             MediaType::Music => {
