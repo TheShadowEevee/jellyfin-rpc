@@ -635,7 +635,7 @@ impl Client {
                     .unwrap();
                 self.parse_music_display(
                     display_state_format
-                        .replace("{__default}", "By {artists} {sep} ")
+                        .replace("{__default}", "{artists} {sep} ")
                         .as_str(),
                 )
             }
@@ -665,7 +665,7 @@ impl Client {
                     .join(", ");
 
                 if !artists.is_empty() {
-                    state += &format!("By {}", artists)
+                    state += &format!("{}", artists)
                 }
 
                 if !state.is_empty() && !genres.is_empty() {
