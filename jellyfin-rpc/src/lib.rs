@@ -1,4 +1,4 @@
-use discord_rich_presence::activity::{ActivityType, Button as ActButton};
+use discord_rich_presence::activity::{ActivityType, Button as ActButton, StatusDisplayType};
 use discord_rich_presence::{
     activity::{Activity, Assets, Timestamps},
     DiscordIpc, DiscordIpcClient,
