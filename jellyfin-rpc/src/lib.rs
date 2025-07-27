@@ -49,12 +49,12 @@ impl Client {
 
     /// Connects to the discord socket
     pub fn connect(&mut self) -> JfResult<()> {
-        self.discord_ipc_client.connect()
+        Ok(self.discord_ipc_client.connect()?)
     }
 
     /// Reconnects to the discord socket
     pub fn reconnect(&mut self) -> JfResult<()> {
-        self.discord_ipc_client.reconnect()
+        Ok(self.discord_ipc_client.reconnect()?)
     }
 
     /// Clears current activity on discord if anything is being displayed
@@ -77,7 +77,7 @@ impl Client {
     /// client.clear_activity().unwrap();
     /// ```
     pub fn clear_activity(&mut self) -> JfResult<()> {
-        self.discord_ipc_client.clear_activity()
+        Ok(self.discord_ipc_client.clear_activity()?)
     }
 
     /// Gathers information from jellyfin about what is being played and displays it according to the options supplied to the builder.
@@ -1179,7 +1179,7 @@ impl ClientBuilder {
         headers.insert("X-Emby-Token", self.api_key.parse()?);
 
         Ok(Client {
-            discord_ipc_client: DiscordIpcClient::new(&self.client_id)?,
+            discord_ipc_client: DiscordIpcClient::new(&self.client_id),
             url: self.url.parse()?,
             reqwest: reqwest::blocking::Client::builder()
                 .default_headers(headers)
