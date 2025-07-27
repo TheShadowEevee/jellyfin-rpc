@@ -216,12 +216,12 @@ impl Client {
                 MediaType::Music | MediaType::AudioBook => {
                     activity = activity
                         .activity_type(ActivityType::Listening)
-                        .status_display_type(2)
+                        .status_display_type(StatusDisplayType::Details)
                 }
                 _ => {
                     activity = activity
                         .activity_type(ActivityType::Watching)
-                        .status_display_type(1)
+                        .status_display_type(StatusDisplayType::State)
                 }
             }
 
